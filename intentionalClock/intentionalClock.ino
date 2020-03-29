@@ -359,9 +359,7 @@ void startAlarm() {
 
   // check if the alarm has run for the whole duration
   
-  // THIS IS SET TO SECONDS FOR DEMONSTRATION
-  
-  if (hourNow >= startTime[0] && minNow >= startTime[1] && secNow >= startTime[2] + alarmDuration) {
+  if (hourNow >= startTime[0] + alarmDuration && minNow >= startTime[1] && secNow >= startTime[2]) {
 //if (hourNow >= startTime[0] + alarmDuration && minNow >= startTime[1] && secNow >= startTime[2]) {
     soundIsOn = true;
   }
@@ -429,22 +427,24 @@ bool debounceInputUp(int pinToTest) {
 }
 
 // RGB LED light control
+
+// Light changes from red (midnight) to white (6h) to yellow (12h) to amber (18). When alarm is on, it is blue.
 void setLedColor() {
   int mult;
   if (alarmIsOn) {
-    hsi2rgb(240,1,1,rgb);
+    hsi2rgb(200,0.5,0.5,rgb);
   } else {
     // white to yellow
-    if (hourNow >= 0 && hourNow <= 6) {
+    if (hourNow >= 6 && hourNow <= 12) {
       hsi2rgb(60, 0.16*hourNow, 1, rgb);
     }
     // yellow to amber to red
-    if (hourNow > 6 && hourNow <= 18) {
+    if (hourNow > 12 && hourNow <= 23) {
       mult = (int)(hourNow-6)*5;
       hsi2rgb(60-mult, 1, 1, rgb);      
     }  
     // red to white
-    if (hourNow > 18 && hourNow <= 23) {
+    if (hourNow >= 0 && hourNow <= 5) {
       mult = map(hourNow, 19, 23, 1, 5);
       hsi2rgb(0, 1-(0.16*mult), 1, rgb);    
     }
