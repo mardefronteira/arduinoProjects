@@ -430,18 +430,17 @@ void setLedColor() {
     hsi2rgb(200,0.5,0.5,rgb);
   } else {
     // white to yellow
-    if (hourNow >= 6 && hourNow <= 12) {
-      hsi2rgb(60, 0.16*hourNow, 1, rgb);
+    if (hourNow > 6 && hourNow <= 12) {
+      hsi2rgb(60, 0.16*(hourNow/6), 1, rgb);
     }
     // yellow to amber to red
     if (hourNow > 12 && hourNow <= 23) {
-      mult = (int)(hourNow-6)*5;
-      hsi2rgb(60-mult, 1, 1, rgb);      
+      mult = map(hourNow, 12, 23, 1, 11);
+      hsi2rgb(60-(mult*5.45), 1, 1, rgb);      
     }  
     // red to white
-    if (hourNow >= 0 && hourNow <= 5) {
-      mult = map(hourNow, 19, 23, 1, 5);
-      hsi2rgb(0, 1-(0.16*mult), 1, rgb);    
+    if (hourNow >= 0 && hourNow <= 6) {
+      hsi2rgb(0, 1-(hourNow*0.14), 1, rgb);    
     }
   }
    ledColor(rgb[0],rgb[1],rgb[2]);
