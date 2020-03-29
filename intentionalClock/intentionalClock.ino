@@ -360,7 +360,6 @@ void startAlarm() {
   // check if the alarm has run for the whole duration
   
   if (hourNow >= startTime[0] + alarmDuration && minNow >= startTime[1] && secNow >= startTime[2]) {
-//if (hourNow >= startTime[0] + alarmDuration && minNow >= startTime[1] && secNow >= startTime[2]) {
     soundIsOn = true;
   }
 
