@@ -20,8 +20,6 @@ const int buttonPin = 8;
 const int tiltPin = 12;
 const int encoderPushPin = 4;
 const int speakerPin = 5;
-//const int speakerPin2 = 11;
-
 
 const int displayResetPin = 7;
 
@@ -365,7 +363,6 @@ void startAlarm() {
 
   if (soundIsOn) {
 //    Serial.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-
     playNote(262, 100, 200);
     playNote(392, 200, 100);
     playNote(330,100,100);
@@ -387,7 +384,6 @@ void startAlarm() {
 void playNote(int freq, int dur, int dTime) {
  if (millis() > lastNote + noteWait) {
    tone(speakerPin, freq, dur);
-//   tone(speakerPin2, freq, dur);
    noteWait = dTime;
    lastNote = millis();
  } else {
